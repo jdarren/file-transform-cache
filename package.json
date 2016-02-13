@@ -1,0 +1,24 @@
+{
+  "name": "file-transform-cache",
+  "version": "1.0.0",
+  "description": "cache intermediate file transformations",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cache",
+    "transform"
+  ],
+  "author": "J. Darren James",
+  "license": "MIT",
+  "dependencies": {
+    "bunyan": "^1.5.1",
+    "lodash": "^4.3.0",
+    "vasync": "^1.6.3",
+    "vinyl": "^1.1.1"
+  }
+}
