@@ -1,6 +1,6 @@
 {
   "name": "file-transform-cache",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "cache intermediate file transformations",
   "main": "lib/index.js",
   "directories": {
@@ -13,6 +13,14 @@
     "cache",
     "transform"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdarren/file-transform-cache.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jdarren/file-transform-cache/issues"
+  },
+  "homepage": "https://github.com/jdarren/file-transform-cache#readme",
   "author": "J. Darren James",
   "license": "MIT",
   "dependencies": {
