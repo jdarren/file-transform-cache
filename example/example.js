@@ -28,7 +28,7 @@ var ftc = ftcache({
         prefixTransformer({prefix:'/* File Preamble Transform: Done */\n\n'}),
         suffixTransformer({suffix:'/* File Suplemental Info */\n'})
     ],
-    path: path.join( __dirname, '.samplecache')
+    path: path.join( __dirname, '.example_cache')
 });
 
 var file1 = path.join( __dirname, 'helloworld.js' );

@@ -1,3 +1,4 @@
 node_modules
-example/.samplecache
+example/.example_cache
+example/.globExample
 test/.sample*
