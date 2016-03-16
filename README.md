@@ -19,6 +19,7 @@ var ftcache = require('file-transform-cache');
  *
  * @param options.path {String} the path of the cache file to be created/read to store transformations.
  * @param options.transforms {Function|Array} a function or an array of transform creation functions.
+ * @param options.hash {boolean} if true use the hash of the file content rather than modified time to check for staleness.
  */
 var ftc     = ftcache({path,       '.myCache',
                        transforms: [ myTransform1(opts), ...] });

@@ -101,6 +101,32 @@ describe('file-transform-cache', function() {
             });
         });
 
+        it('should not run the transform when the file content is the same when using the hash option', function (done) {
+            var transformOpts = {numRuns: 0};
+            var helloFile     = new File({path: path.join( __dirname, 'hello'), contents: new Buffer('hello')});
+
+            // put a physical file out there so it can be checked for mod time.
+            fs.writeFileSync(helloFile.path, helloFile.contents);
+
+            var ftc = ftcache({path: path.join( __dirname, '.sample2'), hash: true, transforms: [bracketTransform(transformOpts)]});
+
+            // run it once to seed the cache...
+            ftc.transform( helloFile, (err, resultFile) => {
+
+                // now touch the file so that the mod time is new, but the content is the same...
+                fs.writeFileSync(helloFile.path, helloFile.contents);
+                transformOpts.numRuns = 0; /* reset */
+
+                // now transform again, should be a straight pull from cache
+                ftc.transform( resultFile, (err, resultFile2) => {
+                    assert.equal(0, transformOpts.numRuns); // transform ran once
+                    assert.equal('[hello]', resultFile.contents.toString() ); // and produced the correct value.
+                    done();
+                });
+
+            });
+        });
+
     });
 
     describe('saving', function () {
