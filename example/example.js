@@ -24,6 +24,7 @@ var suffixTransformer = function(options) {
 };
 
 var ftc = ftcache({
+    hash: true,
     transforms: [
         prefixTransformer({prefix:'/* File Preamble Transform: Done */\n\n'}),
         suffixTransformer({suffix:'/* File Suplemental Info */\n'})
