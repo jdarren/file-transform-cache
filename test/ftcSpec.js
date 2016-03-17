@@ -15,6 +15,15 @@ function bracketTransform(options) {
     };
 }
 
+function extTransform(options) {
+    return (file,next) => {
+        options.numRuns++;
+        file.contents = new Buffer('[' + file.contents.toString() + ']');
+	file.extname = '.dat';
+        next(null, file);
+    };
+}
+
 function updateFile(file, str) {
     fs.writeFileSync(file.path, str, 'utf-8');
     file.contents = new Buffer(str);
@@ -58,6 +67,35 @@ describe('file-transform-cache', function() {
                     assert.equal('[hello]', resultFile.contents.toString() ); // but still got the correct value out of cache
 
                     removeFile(helloFile);
+
+                    done();
+                });
+
+            });
+        });
+
+        it('should run the transform and preserve ext changes', function (done) {
+            var transformOpts = {numRuns: 0};
+            var atextFile     = new File({path: path.join( __dirname, 'sometext.txt')});
+
+            // put a physical file out there so it can be checked for mod time.
+            updateFile(atextFile, 'sometext');
+
+            var ftc = ftcache({path: path.join( __dirname, '.sample'), hash: true, transforms: [extTransform(transformOpts)]});
+            ftc.transform( atextFile, (err, resultFile) => {
+
+                assert.equal(1, transformOpts.numRuns); // transform ran once
+                assert.equal('[sometext]', resultFile.contents.toString() ); // and produced the correct value.
+
+                transformOpts.numRuns = 0;
+
+                ftc.transform( atextFile, (err, resultFile) => {
+
+                    assert('is a new file with a .dat', resultFile.path.indexOf('.dat') > 0);
+                    assert.equal(0, transformOpts.numRuns); // transform did not run that time
+                    assert.equal('[sometext]', resultFile.contents.toString() ); // but still got the correct value out of cache
+
+                    fs.unlinkSync(atextFile.history[0]);
 
                     done();
                 });
