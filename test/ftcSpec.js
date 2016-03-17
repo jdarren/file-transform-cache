@@ -19,7 +19,7 @@ function extTransform(options) {
     return (file,next) => {
         options.numRuns++;
         file.contents = new Buffer('[' + file.contents.toString() + ']');
-        file.path = file.path.replace('.txt', '.dat');
+	file.extname = '.dat';
         next(null, file);
     };
 }
