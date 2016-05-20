@@ -1,6 +1,6 @@
 {
   "name": "file-transform-cache",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "cache intermediate file transformations",
   "main": "lib/index.js",
   "directories": {
