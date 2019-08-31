@@ -156,7 +156,7 @@ describe('file-transform-cache', function() {
                 transformOpts.numRuns = 0; /* reset */
 
                 // now transform again, should be a straight pull from cache
-                ftc.transform( resultFile, (err, resultFile2) => {
+                ftc.transform( helloFile, (err, resultFile2) => {
                     assert.equal(0, transformOpts.numRuns); // transform ran once
                     assert.equal('[hello]', resultFile.contents.toString() ); // and produced the correct value.
                     done();
